@@ -9,6 +9,9 @@ class TaskDirection(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.title
+
 
 class WeekDay(models.TextChoices):
     MON = 'mon', 'Monday'
@@ -35,7 +38,7 @@ class Task(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.tg_user.username or self.tg_user.full_name} {self.title} {self.day_of_week}'
+        return self.title
 
 
 class TaskDetailStatus(models.TextChoices):

@@ -1,10 +1,11 @@
+from django.contrib import admin
 from django.db import models
 from django.utils import timezone
 
 
 class TelegramUserStatus(models.TextChoices):
     ADMIN = 'admin', 'Admin'
-    DEFAULT = 'default', 'Default'
+    BASIC = 'basic', 'Basic'
     DISABLED = 'disabled', 'Disabled'
     UNAUTHORIZED = 'unauthorized', 'Unauthorized'
 
@@ -22,3 +23,7 @@ class TelegramUser(models.Model):
 
     def __str__(self):
         return self.username or self.full_name or str(self.chat_id)
+
+    @admin.display(description='User Info')
+    def user_contact_details(self):
+        return self.username or self.full_name or self.chat_id

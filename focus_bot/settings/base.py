@@ -26,7 +26,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Apps
-    'apps.bot.apps.BotConfig'
+    'apps.bot.apps.BotConfig',
+    'apps.planner.apps.PlannerConfig',
 
 ]
 

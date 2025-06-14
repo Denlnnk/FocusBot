@@ -5,9 +5,9 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, CallbackQuery
 
 from apps.bot.markups.inline import week_day_inline_markup
-from apps.bot.services.task_direction_service import get_or_create_direction
-from apps.bot.services.task_service import create_task_for_user
-from apps.bot.services.tg_user_service import get_or_update_user
+from apps.bot.services.planner.directions import get_or_create_direction
+from apps.bot.services.planner.tasks import get_or_update_task
+from apps.bot.services.tg_user.tg_user import get_or_update_user
 from apps.bot.states import AddTask
 from apps.planner.models import WeekDay
 
@@ -63,7 +63,7 @@ async def _(message: Message, state: FSMContext):
     user = await get_or_update_user(message.from_user)
     direction = await get_or_create_direction(user, direction_title)
 
-    await create_task_for_user(
+    await get_or_update_task(
         user=user,
         direction=direction,
         title=task_name,

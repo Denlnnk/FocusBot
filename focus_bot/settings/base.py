@@ -13,6 +13,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # Project variables
 
 # Bot variables
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 
 ALLOWED_HOSTS = []
 
@@ -81,6 +82,14 @@ AUTH_PASSWORD_VALIDATORS = [
 # Logging
 LOGS_DIR = os.path.join(BASE_DIR, "logs")
 os.makedirs(LOGS_DIR, exist_ok=True)
+
+logger.add(
+    os.path.join(LOGS_DIR, "bot_logs.log"),
+    level="INFO",
+    filter=lambda record: record["extra"].get("name") == "bot_logger",
+    rotation="1 day",
+    compression="zip"
+)
 
 
 def get_logger(name):

@@ -3,3 +3,5 @@ python-dotenv~=1.1.0
 loguru~=0.7.3
 django-redis~=5.4.0
 pytz~=2025.2
+aiogram~=3.20.0.post0
+asgiref~=3.8.1

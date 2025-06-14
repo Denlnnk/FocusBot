@@ -22,7 +22,7 @@ class TelegramUser(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.username or self.full_name or str(self.chat_id)
+        return self.username or self.full_name or self.chat_id
 
     @admin.display(description='User Info')
     def user_contact_details(self):

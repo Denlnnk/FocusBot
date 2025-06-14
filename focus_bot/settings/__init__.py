@@ -13,7 +13,6 @@ if env not in AVAILABLE_ENVS:
 
 try:
     if env == 'production':
-        print('test log')
         from .production import *
     elif env == 'local':
         from .local import *

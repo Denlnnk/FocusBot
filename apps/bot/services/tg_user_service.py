@@ -4,7 +4,7 @@ from django.utils import timezone
 from apps.bot.models import TelegramUser, TelegramUserStatus
 
 
-def _sync_get_or_update_user(tg_user) -> None:
+def _sync_get_or_update_user(tg_user) -> TelegramUser:
     """
     Function for saving or updating TelegramUser instance
     """
@@ -29,5 +29,6 @@ def _sync_get_or_update_user(tg_user) -> None:
         obj.last_active_time = timezone.now()
         obj.save()
 
+    return obj
 
 get_or_update_user = sync_to_async(_sync_get_or_update_user, thread_sensitive=True)

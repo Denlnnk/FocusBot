@@ -1,6 +1,6 @@
 from functools import wraps
 
-from apps.bot.services.user_service import get_or_update_user
+from apps.bot.services.tg_user_service import get_or_update_user
 
 
 def track_user_data(handler):

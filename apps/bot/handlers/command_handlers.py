@@ -3,6 +3,8 @@ from aiogram.filters import CommandStart, Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 
+from apps.bot.markups.inline import task_adding_markup
+from apps.bot.services.planner.directions import check_user_directions_exists
 from apps.bot.states import AddTask
 from apps.bot.utils.decorators import track_user_data
 
@@ -24,8 +26,14 @@ async def _(message: Message):
 @command_router.message(Command('add'))
 @track_user_data
 async def _(message: Message, state: FSMContext):
-    await state.set_state(AddTask.task_direction)
+    if await check_user_directions_exists(message.from_user.id):
+        await message.answer(
+            'Создадим новое направление или выберем из существующих?', reply_markup=task_adding_markup()
+        )
+        return
+
     await message.answer(
         'Какое направление будет у задачи?(например: English, Self Education и тд)'
     )
+    await state.set_state(AddTask.task_direction)
 

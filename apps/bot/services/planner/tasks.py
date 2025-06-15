@@ -1,15 +1,17 @@
 from datetime import time as time_type
+from typing import Awaitable
 
-from asgiref.sync import sync_to_async
+from channels.db import database_sync_to_async
 
 from apps.bot.models import TelegramUser
 from apps.planner.models import Task
 from apps.planner.models import TaskDirection
 
 
-def _sync_get_or_update_task(
+@database_sync_to_async
+def get_or_update_task(
         user: TelegramUser, direction: TaskDirection, title: str, day_of_week: str, time: time_type
-) -> Task:
+) -> Awaitable[Task]:
     """
     Function for getting or creating Task instance
     """
@@ -24,6 +26,3 @@ def _sync_get_or_update_task(
         }
     )
     return task
-
-
-get_or_update_task = sync_to_async(_sync_get_or_update_task, thread_sensitive=True)

@@ -1,10 +1,13 @@
-from asgiref.sync import sync_to_async
+from typing import Awaitable
+
+from channels.db import database_sync_to_async
 from django.utils import timezone
 
 from apps.bot.models import TelegramUser, TelegramUserStatus
 
 
-def _sync_get_or_update_user(tg_user) -> TelegramUser:
+@database_sync_to_async
+def get_or_update_user(tg_user) -> Awaitable[TelegramUser]:
     """
     Function for saving or updating TelegramUser instance
     """
@@ -30,5 +33,3 @@ def _sync_get_or_update_user(tg_user) -> TelegramUser:
         obj.save()
 
     return obj
-
-get_or_update_user = sync_to_async(_sync_get_or_update_user, thread_sensitive=True)

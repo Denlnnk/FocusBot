@@ -15,6 +15,9 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # Bot variables
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 
+# OpenAI
+OPEN_AI_TOKEN = os.getenv("OPEN_AI_TOKEN")
+
 ALLOWED_HOSTS = []
 
 # Application definition

@@ -6,3 +6,8 @@ class AddTask(StatesGroup):
     task_name = State()
     task_date = State()
     task_time = State()
+
+
+class AiPlanCreation(StatesGroup):
+    plan_directions = State()
+    plan_weeks = State()

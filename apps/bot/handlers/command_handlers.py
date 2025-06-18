@@ -5,7 +5,7 @@ from aiogram.types import Message
 
 from apps.bot.markups.inline import task_adding_markup
 from apps.bot.services.planner.directions import check_user_directions_exists
-from apps.bot.states import AddTask
+from apps.bot.states import AddTask, AiPlanCreation
 from apps.bot.utils.decorators import track_user_data
 
 command_router = Router()
@@ -37,3 +37,14 @@ async def _(message: Message, state: FSMContext):
     )
     await state.set_state(AddTask.task_direction)
 
+
+@command_router.message(Command('plan_creation'))
+@track_user_data
+async def _(message: Message, state: FSMContext):
+    answer_text = (
+        'По каким направлениям желаете сгенерировать план?'
+        '\nПример: English, Self Education'
+        '\n<b>Важно!</b>: направления перечислять через запятую'
+    )
+    await message.answer(answer_text, parse_mode='html')
+    await state.set_state(AiPlanCreation.plan_directions)
